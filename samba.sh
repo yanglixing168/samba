@@ -18,8 +18,8 @@ if ! rpm -q samba; then
 fi
 
 # Create the shared folder if it doesn't exist
-if [ ! -d "$/home/share" ]; then
-    mkdir -p "$/home/share"
+if [ ! -d "/home/share" ]; then
+    mkdir -p "/home/share"
 fi
 
 # Configure Samba
