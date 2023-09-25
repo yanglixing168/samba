@@ -35,6 +35,7 @@ EOL
 
 # Set the Samba password for the user
 sudo adduser user0
+sudo smbpasswd -a user0
 (echo "user0"; echo "user0") | smbpasswd -s -a "user0"
 
 # Restart Samba to apply the changes
