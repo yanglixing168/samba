@@ -17,6 +17,8 @@ if ! rpm -q samba; then
     yum install samba samba-client -y
 fi
 
+
+
 # Create the shared folder if it doesn't exist
 if [ ! -d "/home/share" ]; then
     mkdir -p "/home/share"
@@ -47,3 +49,14 @@ firewall-cmd --reload
 
 # Print a message indicating the configuration is complete
 echo "Samba has been configured. Shared folder: $shared_folder_path, User: $samba_user"
+
+# Install dos2unix if not already installed
+if ! rmp -q dos2unix; then
+    yum install dos2unix -y
+fi
+
+#convert samba.sh
+dos2unix samba.sh
+
+
+
