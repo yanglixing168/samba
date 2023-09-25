@@ -14,7 +14,7 @@ samba_password="user0"
 
 # Install Samba if not already installed
 if ! rpm -q samba; then
-    yum install samba -y
+    yum install samba samba-client -y
 fi
 
 # Create the shared folder if it doesn't exist
@@ -25,15 +25,14 @@ fi
 # Configure Samba
 cat <<EOL >> /etc/samba/smb.conf
 [share]
-   path = $/home/share
+   path = /home/share
    browseable = yes
    writable = yes
-   create mask = 0664
-   directory mask = 0775
+   public = yes
 EOL
 
 # Set the Samba password for the user
-(echo "$user0"; echo "$user0") | smbpasswd -s -a "$user0"
+(echo "user0"; echo "user0") | smbpasswd -s -a "user0"
 
 # Restart Samba to apply the changes
 systemctl restart smb
