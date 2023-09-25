@@ -7,10 +7,10 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Variables for your shared folder and user settings
-shared_folder_name="myshare"
-shared_folder_path="/path/to/shared_folder"
-samba_user="sambauser"
-samba_password="yourpassword"
+share_folder_name="share"
+shared_folder_path="/home/share"
+samba_user="user0"
+samba_password="user0"
 
 # Install Samba if not already installed
 if ! rpm -q samba; then
@@ -18,22 +18,22 @@ if ! rpm -q samba; then
 fi
 
 # Create the shared folder if it doesn't exist
-if [ ! -d "$shared_folder_path" ]; then
-    mkdir -p "$shared_folder_path"
+if [ ! -d "$/home/share" ]; then
+    mkdir -p "$/home/share"
 fi
 
 # Configure Samba
 cat <<EOL >> /etc/samba/smb.conf
-[$shared_folder_name]
-   path = $shared_folder_path
-   valid users = $samba_user
-   read only = no
-   create mask = 0660
-   directory mask = 0770
+[share]
+   path = $/home/share
+   browseable = yes
+   writable = yes
+   create mask = 0664
+   directory mask = 0775
 EOL
 
 # Set the Samba password for the user
-(echo "$samba_password"; echo "$samba_password") | smbpasswd -s -a "$samba_user"
+(echo "$user0"; echo "$user0") | smbpasswd -s -a "$user0"
 
 # Restart Samba to apply the changes
 systemctl restart smb
